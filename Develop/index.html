@@ -22,30 +22,39 @@
   <div class="container">
     <!-- Timeblocks go here -->
 
-    <div class="row">
-      <div class="hour col-1 text-right pt-2">9AM </div>
-      <textarea type="text" class="past col-10"></textarea>
-      <button class="btn saveBtn col-1" type="button" id="button1"><i><span class="fas fa-save i"></span></i></button>
-    </div>
-
-    <div class="row">
-      <div class="hour col-1 text-right pt-2">10AM </div>
-      <textarea type="text" class="present col-10"></textarea>
-      <button class="btn saveBtn col-1" type="button" id="button2"><i><span class="fas fa-save i"></span></i></button>
-    </div>
-
-    <div class="row">
-      <div class="hour col-1 text-right pt-2">11AM </div>
-      <textarea type="text" class="future col-10"></textarea>
-      <button class="btn saveBtn col-1" type="button" id="button3"><i><span class="fas fa-save i"></span></i></button>
-    </div>
-
-
-
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- <script src="./script.js"></script> -->
+
+  <script>
+    // Set time variables
+    var startTime = 9;
+    var endTime = 17;
+    var numSlots = endTime - startTime;
+    var AMPM = "AM";
+    // Loop to add time rows
+    for (i = 0; i <= numSlots; i++) {
+      var time = i + startTime;
+      if (time >= 12) {
+        AMPM = "PM";
+      }
+      if (time > 12) {
+        time = time - 12;
+      }
+      var tmpString = "row";
+      var rowID = (tmpString.concat(time.toString())).concat(AMPM);
+      $(".container").append("<div class='row' id=" + rowID + "><div");
+      var rowPrefix = "#";
+      var rowJQName = rowPrefix.concat(rowID);
+      $(rowJQName).append("<div class='hour col-1 text-right pt-2'>" + time + " " + AMPM + " </div>");
+      $(rowJQName).append("<textarea type='text' class='future col-10'></textarea>");
+      var buttonID = "button" + time + AMPM;
+      $(rowJQName).append("<button class='btn saveBtn col-1' type='button' id=" + buttonID + "><i><span class='fas fa-save i'></span></i></button>");
+    }
+  </script>
 </body>
 
 </html>
