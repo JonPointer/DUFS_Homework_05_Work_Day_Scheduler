@@ -42,6 +42,7 @@ $(document).ready(function () {
     // Loop to add time rows and button event handlers
     for (i = 0; i <= numSlots; i++) {
         var time = i + startTime;
+        var hour24 = time;
         if (time >= 12) {
             AMPM = "PM";
         }
@@ -54,9 +55,19 @@ $(document).ready(function () {
         $(".container").append("<div class='row' id=" + rowID + "><div");
         // Now append the time text to that row
         $(rowJQName).append("<div class='hour col-1 text-right pt-2'>" + time + " " + AMPM + " </div>");
+
+        // Determine whether this time slot is past, present, or future
+        if (hour24 < currentHour) {
+            var timeColor = "past";
+        } else if (hour24 === currentHour) {
+            var timeColor = "present";
+        } else {
+            var timeColor = "future";
+        }
+
         // Now append a text box to that row after the time text
         var textID = "text".concat(i);
-        $(rowJQName).append("<textarea type='text' id=" + textID + " class='future col-10'></textarea>");
+        $(rowJQName).append("<textarea type='text' id=" + textID + " class='" + timeColor + " col-10'></textarea>");
         // And, lastly, append a button to the row.
         var buttonID = "button".concat(i);
         var buttonJQName = "#".concat(buttonID);
