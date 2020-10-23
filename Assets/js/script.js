@@ -25,9 +25,11 @@ $(document).ready(function () {
         var textID = "text".concat(indexPos);
         var textJQName = "#".concat(textID);
         // Store the text from the specified text ID to the index position in the schedule array
+        // ***  Console log the constructed jQuery selector.  This looks correct. 
         console.log(textJQName);
-        console.log($(textJQName).text());
-        schedule[indexNum] = $(textJQName).text();
+        // *** Now console log the content of that ID and nothing is displayed, it is an empty string.
+        console.log($(textJQName).val());
+        schedule[indexNum] = $(textJQName).val();
         // Now rewrite the schedule to storage
         localStorage.setItem("schedule", JSON.stringify(schedule));
     }
