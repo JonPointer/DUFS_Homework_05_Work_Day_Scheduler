@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <link rel="stylesheet" href="./Assets/css/style.css" />
   <title>Work Day Scheduler</title>
 </head>
@@ -21,40 +23,14 @@
   </header>
   <div class="container">
     <!-- Timeblocks go here -->
+    <!-- Generation contained in script.js file -->
 
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 
   <script src="./Assets/js/script.js"></script>
 
-  <script>
-    // Set time variables
-    var startTime = 9;
-    var endTime = 17;
-    var numSlots = endTime - startTime;
-    var AMPM = "AM";
-    // Loop to add time rows
-    for (i = 0; i <= numSlots; i++) {
-      var time = i + startTime;
-      if (time >= 12) {
-        AMPM = "PM";
-      }
-      if (time > 12) {
-        time = time - 12;
-      }
-      var tmpString = "row";
-      var rowID = (tmpString.concat(time.toString())).concat(AMPM);
-      $(".container").append("<div class='row' id=" + rowID + "><div");
-      var rowPrefix = "#";
-      var rowJQName = rowPrefix.concat(rowID);
-      $(rowJQName).append("<div class='hour col-1 text-right pt-2'>" + time + " " + AMPM + " </div>");
-      $(rowJQName).append("<textarea type='text' class='future col-10'></textarea>");
-      var buttonID = "button" + time + AMPM;
-      $(rowJQName).append("<button class='btn saveBtn col-1' type='button' id=" + buttonID + "><i><span class='fas fa-save i'></span></i></button>");
-    }
-  </script>
 </body>
 
 </html>
