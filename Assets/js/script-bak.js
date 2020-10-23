@@ -1,34 +1,22 @@
 
 $(document).ready(function () {
 
+    var schedule = [];
+
     // Set time variables
 
     var startTime = 9;
     var endTime = 17;
     var numSlots = endTime - startTime;
     var AMPM = "AM";
-
     // Since the schedule will always be 9-5, there will always be 9 time slots.  Therefor, the code will keep track of them and their values 
     // as timeSlot 0-8
 
-    // The schedule array will hold the text of the 0-8 time slots
-    var schedule = [];
-
     function writeTimeSlot(timeSlot) {
-        console.log("Time Slot is " + timeSlot);
-        // Need to get the number of the button passed.  Given an ID passed of "button#", this will always be the 6th position on the string
-        var indexPos = timeSlot.substring(6);
-        console.log(indexPos);
-        var indexNum = parseInt(indexPos);
-        console.log(indexNum);
-        // Given this index, build the text ID and jQuery selector
-        var textID = "text".concat(indexPos);
-        var textJQName = "#".concat(textID);
-        // Store the text from the specified text ID to the index position in the schedule array
-        console.log(textJQName);
-        console.log($(textJQName).text());
-        schedule[indexNum] = $(textJQName).text();
-        // Now rewrite the schedule to storage
+        console.log(timeSlot);
+        var
+        var funTextID = "text" + enteredTime + enteredAMPM;
+        schedule[timeSlot] = document.getElementById(funTextID).textContent;
         localStorage.setItem("schedule", JSON.stringify(schedule));
     }
 
@@ -41,23 +29,20 @@ $(document).ready(function () {
         if (time > 12) {
             time = time - 12;
         }
-        // Create a row in the container
-        var rowID = "row".concat(i);
-        var rowJQName = "#".concat(rowID);
+        var tmpString = "row";
+        var rowID = (tmpString.concat(time.toString())).concat(AMPM);
         $(".container").append("<div class='row' id=" + rowID + "><div");
-        // Now append the time text to that row
+        var rowPrefix = "#";
+        var rowJQName = rowPrefix.concat(rowID);
         $(rowJQName).append("<div class='hour col-1 text-right pt-2'>" + time + " " + AMPM + " </div>");
-        // Now append a text box to that row after the time text
-        var textID = "text".concat(i);
+        var textID = "text" + time + AMPM;
         $(rowJQName).append("<textarea type='text' id=" + textID + " class='future col-10'></textarea>");
-        // And, lastly, append a button to the row.
-        var buttonID = "button".concat(i);
-        var buttonJQName = "#".concat(buttonID);
+        var buttonID = "button" + time + AMPM;
         $(rowJQName).append("<button class='btn saveBtn col-1' type='button' id=" + buttonID + "><i><span class='fas fa-save i'></span></i></button>");
 
-        // Now create an on click event for each button
-        $(buttonJQName).on('click', function () {
-            // console.log(this.id);
+        var buttonJQ = "#".concat(buttonID);
+        $(buttonJQ).on('click', function () {
+            console.log(this.id);
             // Call function to write data in that time slot
             // writeTimeSlot(i, time, AMPM);
             writeTimeSlot(this.id);
@@ -81,12 +66,23 @@ $(document).ready(function () {
         // Schedule already existed in local storage, so read in and display
         schedule = JSON.parse(schedule);
         for (i = 0; i <= numSlots; i++) {
-            // Given this index, build the text ID and jQuery selector
-            var textID = "text".concat(i);
-            var textJQName = "#".concat(textID);
-            // Write this schedule index to it's text box
-            $(textJQName).text(schedule[i]);
+            var time = i + startTime;
+            if (time >= 12) {
+                AMPM = "PM";
+            }
+            if (time > 12) {
+                time = time - 12;
+            }
+            var textIDJQ = "#text" + time + AMPM;
+            $(textIDJQ).text = schedule[i];
         }
     }
+
+
+
+
+
+
+
 })
 
