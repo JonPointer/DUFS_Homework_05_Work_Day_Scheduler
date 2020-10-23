@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 
+    // Display the current day at the top
+    $("#currentDay").text(moment().format('dddd, MMMM Do'));
+    var currentHour = parseInt(moment().format('H'));
+    console.log(currentHour);
+
     // Set time variables
 
     var startTime = 9;
